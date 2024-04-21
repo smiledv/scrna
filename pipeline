@@ -1,28 +1,36 @@
 #STEP 1: quality control
 
-#write a docker file (Dockerfile) to install fastqc and cell ranger.
+##########################################################################################################################################################
 
-#build the image using docker
+#1.1. Make a dockerfile to run FASTQC
+
+#build the image using docker on your pc
 
 DOCKERHUB_USERNAME=miladvahedi
 IMAGE_VERSION=amd64
 IMAGE_NAME=scrnaseq
 PLAT=linux/amd64
 
-# build docker image
+# build a docker image
 
 docker build --platform=${PLAT} -t $(DOCKERHUB_USERNAME)/$(IMAGE_NAME):$(IMAGE_VERSION) .
 
 # run interactive docker image to test your image
 
-docker run -it -v /Users/josietuong/scrnaseq:/home $(DOCKERHUB_USERNAME)/$(IMAGE_NAME):$(IMAGE_VERSION)
+docker run -it $(DOCKERHUB_USERNAME)/$(IMAGE_NAME):$(IMAGE_VERSION)
 
-# push docker image to dockerhub
+# push docker image to docker hub
 
 docker push $(DOCKERHUB_USERNAME)/$(IMAGE_NAME):$(IMAGE_VERSION)
 
-# go to scokeye and push the docker image and convert that to sif file
+# go to Sockeye, push the docker image, and convert that to sif file
 
 module load apptainer; \
 apptainer pull --name scrnase
+
+##########################################################################################################################################################
+
+#1.2. Run FASTQC job on sockeye
+
+
 
