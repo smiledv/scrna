@@ -12,21 +12,22 @@ IMAGE_NAME=scrnaseq
 PLAT=linux/amd64
 
 # build a docker image
+#docker file is archived
 
-docker build --platform=${PLAT} -t $(DOCKERHUB_USERNAME)/$(IMAGE_NAME):$(IMAGE_VERSION) .
+docker build --platform=linux/amd64 -t miladvahedi/scrnaseq:amd64 .
 
 # run interactive docker image to test your image
 
-docker run -it $(DOCKERHUB_USERNAME)/$(IMAGE_NAME):$(IMAGE_VERSION)
+docker run -it miladvahedi/scrnaseq:amd64
 
 # push docker image to docker hub
 
-docker push $(DOCKERHUB_USERNAME)/$(IMAGE_NAME):$(IMAGE_VERSION)
+docker push miladvahedi/scrnaseq:amd64
 
 # go to Sockeye, push the docker image, and convert that to sif file
 
 module load apptainer; \
-apptainer pull --name scrnase
+apptainer pull scrna.sif docker://miladvahedi/scrnaseq:amd64
 
 ##########################################################################################################################################################
 
