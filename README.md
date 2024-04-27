@@ -58,6 +58,7 @@ apptainer pull scrna.sif docker://miladvahedi/scrnaseq:amd64
 ```
 
 ### 1.2. Run FASTQC job on sockeye with fastqc.sh file
+#### Check the quality of the reads, particularly R2 reads
 ```
 #!/bin/bash
 
