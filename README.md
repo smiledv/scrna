@@ -77,6 +77,8 @@ do
 done
 ```
 </br>
+<b>
+    
 ## 2: Mapping reads against reference
 
 ### 2.1. Download the reference from Cell Ranger website an unzip
