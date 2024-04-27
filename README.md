@@ -91,7 +91,7 @@ tar -xvzf cell-exp/refdata-gex-GRCm39-2024-A.tar.gz
 mv CRR516134_f1.fastq CRR516134_S1_L001_R1_001.fastq
 mv CRR516134_r2.fastq CRR516134_S1_L001_R2_001.fastq
 ```
-### 2.3. Run cellranger job using the aligment.sh file for each fastq pair files
+### 2.3. Run cellranger job using the aligment.sh file for each batch of fastq files
 ```
 #!/bin/bash
 
@@ -129,6 +129,10 @@ cellranger count \
 --localmem=170 \
 --mempercore=150
 ```
+</br>
+
+    
+## 3. Integration of different batches
 
 
 
