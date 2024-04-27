@@ -23,7 +23,6 @@ module load apptainer; \
 apptainer pull scrna.sif docker://miladvahedi/scrnaseq:amd64
 ```
 
-
 ### 1.2. Run FASTQC job on sockeye with fastqc.sh file
 ```
 #!/bin/bash
@@ -77,7 +76,7 @@ do
     fastqc -t 5 $file -o $OUTPUT
 done
 ```
-##########################################################################################################################################################
+
 
 ## 2: Mapping reads against reference
 
@@ -127,9 +126,9 @@ cellranger count \
 --fastqs=/scratch/st-gkoelwyn-1/milad/alignment/sc_rna_seq/OC_blood \
 --localcores=25 \
 --localmem=170 \
-```
 --mempercore=150
+```
 
-##########################################################################################################################################################
+
 
 
