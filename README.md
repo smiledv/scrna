@@ -1,6 +1,6 @@
 ## 1. Raw data processing
 ### 1.1. Make a dockerfile to run FASTQC and cellranger
-#### Make this docker file (Dockerfile)
+#### Make this Dockerfile
 ```
 FROM ubuntu:mantic-20240405
 
