@@ -79,18 +79,20 @@ done
 ```
 ##########################################################################################################################################################
 
-#STEP 2: alignment
+## 2: Mapping reads against reference
 
-#2.1. download the reference from cell ranger website an unzip
+### 2.1. Download the reference from Cell Ranger website an unzip
+```
 wget "https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCm39-2024-A.tar.gz"
 tar -xvzf cell-exp/refdata-gex-GRCm39-2024-A.tar.gz
-
-#2.2. rename your samples based on cellranger input format
+```
+### 2.2. Rename your samples based on Cell Ranger fastq input format
+```
 mv CRR516134_f1.fastq CRR516134_S1_L001_R1_001.fastq
 mv CRR516134_r2.fastq CRR516134_S1_L001_R2_001.fastq
-
-#2.3. run cellranger job using the aligment.sh file for each fastq pair files
-
+```
+### 2.3. Run cellranger job using the aligment.sh file for each fastq pair files
+```
 #!/bin/bash
 
 #SBATCH --time=24:00:00        # Request xx hours of runtime
@@ -113,11 +115,10 @@ SIF=/scratch/st-gkoelwyn-1/milad/alignment/docker/scrna.sif
 
 module load apptainer
 apptainer run -B $DATA $SIF sh alignment.sh $DATA
+```
 
-##########################################################################################################################################################
-
-2.3. alignment.sh file
-
+### 2.3. The alignment.sh file you need for your job
+```
 cellranger count \
 --create-bam=true \
 --sample=CRR516134 \
@@ -126,6 +127,7 @@ cellranger count \
 --fastqs=/scratch/st-gkoelwyn-1/milad/alignment/sc_rna_seq/OC_blood \
 --localcores=25 \
 --localmem=170 \
+```
 --mempercore=150
 
 ##########################################################################################################################################################
