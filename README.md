@@ -1,6 +1,6 @@
 # STEP 1: raw data processing
 ## 1.1. Make a dockerfile to run FASTQC
-# build the image using docker on your pc
+### build the image using docker on your pc
 
 DOCKERHUB_USERNAME=miladvahedi
 IMAGE_VERSION=amd64
