@@ -1,6 +1,40 @@
 ## 1. Raw data processing
 ### 1.1. Make a dockerfile to run FASTQC and cellranger
-#### build the image using docker on your pc
+#### Make a docker file including the below script
+```
+FROM ubuntu:mantic-20240405
+
+#add the version of software
+ARG FASTQC_VER="0.11.8"
+
+# install dependencies; cleanup apt garbage
+RUN apt-get update && apt-get install -y\
+ unzip \
+ wget \
+ make \
+ perl \
+ default-jre && \
+ apt-get autoclean && rm -rf /var/lib/apt/lists/*
+
+# install fastqc
+RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v${FASTQC_VER}.zip && \
+    unzip fastqc_v${FASTQC_VER}.zip && \
+    rm fastqc_v${FASTQC_VER}.zip && \
+    chmod +x FastQC/fastqc && \
+    mkdir /data
+ENV PATH="${PATH}:/FastQC/"
+
+#install cellranger
+RUN wget -O cellranger-8.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-8.0.0.tar.gz?Expires=1713875243&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA&Signature=AqqHvTjMfwit7fv6CdD-S-Mgx-hrWufkaovgH30zt-AnU22SMijNl7~3KeVL-D60K5LhE~Jd8g0lJpgVsobLTSZVfl04hmmOhYc-YZlqXTRXfETM-PbKcBlM-r68mRdM0zScDPs6Sq9mwkrS~RUMh-AyxsHtys6k95NjN1Idi7lYR7atw452zOMkVFuts5VRApgVN01PslieSfU5YOUmODky8rNKrj~jqq3DzpLw0UL8Y36SHwUsHfJjr-DihVwKE3drwW9QHnPq1KiA~94rPYiLxMVal7040b~~aI1bwqCa12FwYo3eofRVqQEl22RshIjskWS-f-hXv5JaxcY3Rw__" && \
+    tar -zxvf cellranger-8.0.0.tar.gz && \
+    rm cellranger-8.0.0.tar.gz && \
+    cd cellranger-8.0.0
+ENV PATH="${PATH}:/cellranger-8.0.0/"
+
+# set working directory
+WORKDIR /home
+```
+#### Run this docker script to build the image
 ```
 DOCKERHUB_USERNAME=miladvahedi
 IMAGE_VERSION=amd64
@@ -9,15 +43,15 @@ PLAT=linux/amd64
 
 docker build --platform=linux/amd64 -t miladvahedi/scrnaseq:amd64 .
 ```
-#### run interactive docker image to test your image
+#### Run interactive docker image to test your image
 ```
 docker run -it miladvahedi/scrnaseq:amd64
 ```
-#### push docker image to docker hub
+#### Push docker image to docker hub
 ```
 docker push miladvahedi/scrnaseq:amd64
 ```
-#### go to Sockeye, push the docker image, and convert that to sif file
+#### Go to Sockeye, push the docker image, and convert that to sif file
 ```
 module load apptainer; \
 apptainer pull scrna.sif docker://miladvahedi/scrnaseq:amd64
