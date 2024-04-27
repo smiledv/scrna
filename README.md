@@ -1,5 +1,5 @@
 ## 1. Raw data processing
-### 1.1. Make a dockerfile to run FASTQC
+### 1.1. Make a dockerfile to run FASTQC and cellranger
 #### build the image using docker on your pc
 ```
 DOCKERHUB_USERNAME=miladvahedi
