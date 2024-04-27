@@ -1,6 +1,6 @@
 # STEP 1: raw data processing
 ## 1.1. Make a dockerfile to run FASTQC
-### build the image using docker on your pc
+#### build the image using docker on your pc
 ```
 DOCKERHUB_USERNAME=miladvahedi
 IMAGE_VERSION=amd64
@@ -9,15 +9,15 @@ PLAT=linux/amd64
 
 docker build --platform=linux/amd64 -t miladvahedi/scrnaseq:amd64 .
 ```
-# run interactive docker image to test your image
+#### run interactive docker image to test your image
 ```
 docker run -it miladvahedi/scrnaseq:amd64
 ```
-# push docker image to docker hub
+#### push docker image to docker hub
 ```
 docker push miladvahedi/scrnaseq:amd64
 ```
-# go to Sockeye, push the docker image, and convert that to sif file
+#### go to Sockeye, push the docker image, and convert that to sif file
 ```
 module load apptainer; \
 apptainer pull scrna.sif docker://miladvahedi/scrnaseq:amd64
