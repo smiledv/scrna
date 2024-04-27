@@ -76,8 +76,7 @@ do
     fastqc -t 5 $file -o $OUTPUT
 done
 ```
-
-
+</br>
 ## 2: Mapping reads against reference
 
 ### 2.1. Download the reference from Cell Ranger website an unzip
