@@ -77,7 +77,7 @@ do
 done
 ```
 </br>
-<b>
+
     
 ## 2: Mapping reads against reference
 
