@@ -1,5 +1,5 @@
-# STEP 1: raw data processing
-## 1.1. Make a dockerfile to run FASTQC
+## 1. Raw data processing
+### 1.1. Make a dockerfile to run FASTQC
 #### build the image using docker on your pc
 ```
 DOCKERHUB_USERNAME=miladvahedi
@@ -22,11 +22,10 @@ docker push miladvahedi/scrnaseq:amd64
 module load apptainer; \
 apptainer pull scrna.sif docker://miladvahedi/scrnaseq:amd64
 ```
-##########################################################################################################################################################
-
-#1.2. Run FASTQC job on sockeye with fastqc.sh file
 
 
+### 1.2. Run FASTQC job on sockeye with fastqc.sh file
+```
 #!/bin/bash
 
 #SBATCH --time=24:00:00        # Request xx hours of runtime
@@ -64,12 +63,10 @@ apptainer run -B $DATA $SIF sh fastqc.sh $DATA
 DATA=/arc/project/st-gkoelwyn-1/jtuong/data/liu_et_al_2023/sc_rna_seq/OC_blood
 
 apptainer run -B $DATA $SIF sh fastqc.sh $DATA
+```
 
-
-##########################################################################################################################################################
-
-#1.3. fastqc.sh file
-
+### 1.3. The fastqc.sh file you need for your job
+```
 FASTQ_FILES=$(find $1 -name *.fastq)
 echo $FASTQ_FILES
 OUTPUT=fastqc_results
@@ -79,7 +76,7 @@ do
     echo $file
     fastqc -t 5 $file -o $OUTPUT
 done
-
+```
 ##########################################################################################################################################################
 
 #STEP 2: alignment
