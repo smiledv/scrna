@@ -90,3 +90,54 @@ done
 ##########################################################################################################################################################
 
 #STEP 2: alignment
+
+#2.1. download the reference from cell ranger website an unzip
+wget "https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCm39-2024-A.tar.gz"
+tar -xvzf cell-exp/refdata-gex-GRCm39-2024-A.tar.gz
+
+#2.2. rename your samples based on cellranger input format
+mv CRR516134_f1.fastq CRR516134_S1_L001_R1_001.fastq
+mv CRR516134_r2.fastq CRR516134_S1_L001_R2_001.fastq
+
+#2.3. run cellranger job using the aligment.sh file for each fastq pair files
+
+#!/bin/bash
+
+#SBATCH --time=24:00:00        # Request xx hours of runtime
+#SBATCH --account=st-gkoelwyn-1   # Specify your allocation code
+#SBATCH --nodes=1              # Request 1 node
+#SBATCH --ntasks=25             # Request x tasks (~x cpus assuming cpus-per-task=1)
+#SBATCH --mem=170G               # Request x GB of memory
+#SBATCH --job-name=alignment_CRR516134    # Specify the job name
+#SBATCH --output=CRR516134_output.txt    # Specify the output file
+#SBATCH --error=CRR516134_error.txt      # Specify the error file
+#SBATCH --mail-user=milad.vahedi@hli.ubc.ca  # Email address for job notifications
+#SBATCH --mail-type=ALL        # Receive email notifications for all job events
+
+
+#############################################################################
+
+SLURM_SUBMIT_DIR=/scratch/st-gkoelwyn-1/milad/alignment
+DATA=/scratch/st-gkoelwyn-1/milad/alignment/sc_rna_seq/OC_blood
+SIF=/scratch/st-gkoelwyn-1/milad/alignment/docker/scrna.sif
+
+module load apptainer
+apptainer run -B $DATA $SIF sh alignment.sh $DATA
+
+##########################################################################################################################################################
+
+2.3. alignment.sh file
+
+cellranger count \
+--create-bam=true \
+--sample=CRR516134 \
+--id=CRR516134 \
+--transcriptome=/scratch/st-gkoelwyn-1/milad/alignment/ref_seq/refdata-gex-GRCm39-2024-A \
+--fastqs=/scratch/st-gkoelwyn-1/milad/alignment/sc_rna_seq/OC_blood \
+--localcores=25 \
+--localmem=170 \
+--mempercore=150
+
+##########################################################################################################################################################
+
+
