@@ -58,7 +58,7 @@ apptainer pull scrna.sif docker://miladvahedi/scrnaseq:amd64
 ```
 
 ### 1.2. Run FASTQC job on sockeye with fastqc.sh file
-#### Check the quality of the reads, particularly R2 reads
+#### Check the quality of the reads, especially R2 reads
 ```
 #!/bin/bash
 
@@ -127,7 +127,7 @@ mv CRR516134_f1.fastq CRR516134_S1_L001_R1_001.fastq
 mv CRR516134_r2.fastq CRR516134_S1_L001_R2_001.fastq
 ```
 ### 2.3. Run cellranger job using the aligment.sh file for each batch of fastq files
-#### You need to address the folder containing the batch of fastq files (with the correct naming style) and the folder contains the reference. 
+#### You need to address the folder containing the batch of fastq files and the one containing the reference. 
 ```
 #!/bin/bash
 
