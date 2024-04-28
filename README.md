@@ -128,6 +128,7 @@ mv CRR516134_r2.fastq CRR516134_S1_L001_R2_001.fastq
 ```
 ### 2.3. Run cellranger job using the aligment.sh file for each batch of fastq files
 #### You need to address the folder containing the batch of fastq files and the one containing the reference. 
+#### After alignment, check the web summary file to see the quality of the mapping.
 ```
 #!/bin/bash
 
