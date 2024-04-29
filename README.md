@@ -169,7 +169,8 @@ cellranger count \
 </br>
 
     
-## 3. Integration of different batches
+## 3. Removing background noise using CellBender
+
 
 
 
